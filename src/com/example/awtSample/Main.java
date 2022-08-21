@@ -1,28 +1,63 @@
 package com.example.awtSample;
 
 
-import javax.swing.tree.TreeNode;
-import java.lang.reflect.Array;
-import java.util.*;
+import java.util.Arrays;
 
 public class Main {
 
     public static void main(String[] args) {
 
-        int[] A={1,1};
+     int[] A={2,3,6,9,8,7};
+     mergeSort(A,0,A.length-1);
+        System.out.println(Arrays.toString(A));
 
-       HashMap<Integer,Integer> hmap=new HashMap<Integer,Integer>();
+    }
+    public static void mergeSort(int[] A, int s, int e){
 
-       hmap.put(7,0);
-       hmap.put(1,1);
-       hmap.put(3,2);
-       hmap.put(4,3);
-       hmap.put(5,1);
-       hmap.put(8,1);
+        if(s>=e) return ;
 
-        System.out.println(hmap.get(hmap));
+        int m=s+(e-s)/2;
+
+        mergeSort(A,s,m);
+        mergeSort(A,m+1,e);
+        merge(A,s,m,e);
+
+    }
+
+    private static void merge(int[] A, int s, int m, int e) {
+
+        int[] T=new int[e-s+1];
+        int p1=s,p2=m+1,p3=0;
+
+        while (p1<=m && p2<=e){
+            if(A[p1]<=A[p2]) {
+                T[p3] = A[p1];
+                p3++;
+                p1++;
+            }else {
+                T[p3] = A[p2];
+                p3++;
+                p2++;
+            }
+        }
+        while (p1<=m){
+            T[p3++]=A[p1++];
+
+        }
+        while (p2<=e){
+            T[p3]=A[p2];
+            p3++;
+            p2++;
+        }
+
+        for(int i=0,j=s;i<T.length;i++,j++){
+            A[j]=T[i];
+        }
     }
 }
+
+
+
 
 
 
